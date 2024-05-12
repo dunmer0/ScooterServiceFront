@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 })
 export class UserService {
 
-  users: User[] = [
+  registeredUsers: User[] = [
     new User('fanel', 'spargtot', 'Fane Spoitoru', 'fane@sparg.ro', 'user'),
     new User('gigel', 'repartot', 'Giga Contra', 'gica@alesul.ro','user'),
     new User('dorel', 'staudegeaba', 'Tudor Calmiara', 'tudor@cerneala.ro','user'),
@@ -16,18 +16,15 @@ export class UserService {
   ];
   loggedUser: User[] = [];
 
-  checkUser(username: string | null | undefined, password: string | null | undefined):boolean{
-    let user = this.users.find(user => user.username === username && user.password === password);
+  checkUser(username: string | null | undefined, password: string | null | undefined){
+    let user = this.registeredUsers.find(user => user.username === username && user.password === password);
     if (user) {
       this.loggedUser.push(user);
       console.log(this.loggedUser);
-      return true;
       // this.router.navigate(['/service']);
     } else {
-      // window.alert("Incorrect username or password");
-      return false;
+      window.alert("Incorrect username or password");
     }
-
   }
 
   isLoggendIn(): boolean{

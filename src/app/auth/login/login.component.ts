@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
 import {UserService} from "../shared/user.service";
@@ -16,14 +16,13 @@ import {Router} from "@angular/router";
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private userService: UserService,
-              protected router:Router) {
-  }
+  userService=inject(UserService);
+  router = inject(Router);
+
   forgotPassword=false;
 
-
   loginForm = new FormGroup({
-    username: new FormControl(''),
+    username: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9]+$/)]),
     password: new FormControl('')
   });
 
@@ -37,8 +36,8 @@ export class LoginComponent {
     this.router.navigate(['/service']);
 
     console.log(username);
-    this.loginForm.reset();
-
+    // this.loginForm.reset();
+    console.log(this.loginForm.valid);
   }
 
   resetPassword() {
