@@ -1,14 +1,16 @@
 import {inject, Injectable} from '@angular/core';
-import {User} from "./user";
+import {LoginUser, User} from "./user";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  http = inject(HttpClient);
+  private http:HttpClient = inject(HttpClient);
+  private url:string = 'https://localhost:7021/api/Account';
 
   registeredUsers: User[] = [
     new User('fanel', 'spargtot', 'Fane Spoitoru', 'fane@sparg.ro', 'user'),
@@ -17,6 +19,10 @@ export class UserService {
     new User('ionel', 'undeemaria', 'Ion Carte', 'ion@pamant.ro','admin'),
   ];
   loggedUser: User[] = [];
+
+  loginUser(user:LoginUser): Observable<LoginUser> {
+    return this.http.post<LoginUser>(this.url+'/login',user);
+  }
 
   checkUser(username: string | null | undefined, password: string | null | undefined){
     let user = this.registeredUsers.find(user => user.username === username && user.passwordHash === password);
