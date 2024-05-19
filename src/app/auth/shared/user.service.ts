@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {User} from "./user";
-import {FormControl, ɵValue} from "@angular/forms";
 import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
+  http = inject(HttpClient);
 
   registeredUsers: User[] = [
     new User('fanel', 'spargtot', 'Fane Spoitoru', 'fane@sparg.ro', 'user'),
@@ -17,7 +19,7 @@ export class UserService {
   loggedUser: User[] = [];
 
   checkUser(username: string | null | undefined, password: string | null | undefined){
-    let user = this.registeredUsers.find(user => user.username === username && user.password === password);
+    let user = this.registeredUsers.find(user => user.username === username && user.passwordHash === password);
     if (user) {
       this.loggedUser.push(user);
       console.log(this.loggedUser);
