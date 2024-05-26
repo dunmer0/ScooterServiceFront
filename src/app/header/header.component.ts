@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Output} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {Router} from "@angular/router";
+import {UserService} from "../auth/shared/user.service";
 
 @Component({
   selector: 'app-header',
@@ -13,10 +14,16 @@ import {Router} from "@angular/router";
 })
 export class HeaderComponent {
   @Output() selected = new EventEmitter<string>();
+  userService = inject(UserService);
 
 constructor(protected router:Router) {}
 
   onSelected(selected: string) {
     this.selected.emit(selected);
+  }
+
+  logout() {
+   this.userService.logoutUser();
+   this.router.navigate(['/']);
   }
 }
