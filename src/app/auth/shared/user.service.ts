@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import { User} from "./user";
+import {LoginUser, User} from "./user";
 import {Router} from "@angular/router";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
@@ -17,6 +17,9 @@ export class UserService {
       catchError(this.handleError)
     );
   }
+
+
+
 
   logoutUser(){
     localStorage.removeItem('token');
@@ -39,5 +42,11 @@ export class UserService {
     }
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
+
+
+  registerUser(user: User):Observable<User> {
+    return this.http.post<User>(this.url+'/register',user);
+
   }
 }
