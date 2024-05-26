@@ -25,5 +25,7 @@ export class LoginUser{
     this.passwordHash = password;
     this.jwt = jwt;
   }
+
+
 }
 
