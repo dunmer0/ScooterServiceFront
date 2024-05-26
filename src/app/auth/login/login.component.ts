@@ -3,6 +3,9 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {NgClass, NgIf} from "@angular/common";
 import {UserService} from "../shared/user.service";
 import {Router} from "@angular/router";
+import {LoginUser, User} from "../shared/user";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {catchError} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -18,27 +21,36 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   userService=inject(UserService);
   router = inject(Router);
+  user:LoginUser = new LoginUser();
 
   forgotPassword=false;
 
   loginForm = new FormGroup({
-    username: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9]+$/)]),
-    password: new FormControl('')
+    username: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9]+$/), Validators.required]),
+    password: new FormControl('',[Validators.pattern(/^[a-zA-Z0-9]+$/), Validators.required])
   });
 
 
 
   onSubmit() {
-    let username = this.loginForm.value.username;
-    let password = this.loginForm.value.password;
-    this.userService.checkUser(username,password);
+      if(this.loginForm.value.username && this.loginForm.value.password) {
+        let user = new LoginUser(this.loginForm.value.username, this.loginForm.value.password);
+        this.userService.loginUser(user).subscribe(
+          data => {
+            this.user = data;
+            localStorage.setItem('token', this.user.jwt);
+            this.router.navigate(['/service']);
+          }
+        );
+      }
 
-    this.router.navigate(['/service']);
-
-    console.log(username);
-    // this.loginForm.reset();
-    console.log(this.loginForm.valid);
+    this.loginForm.reset();
+    // console.log(this.loginForm.valid);
   }
+
+
+
+
 
   resetPassword() {
     console.log('The password reset value is: NULL')

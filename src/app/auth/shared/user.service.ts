@@ -1,48 +1,47 @@
 import {inject, Injectable} from '@angular/core';
 import {LoginUser, User} from "./user";
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {catchError, Observable, throwError} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  http = inject(HttpClient);
+  private http:HttpClient = inject(HttpClient);
+  private url:string = 'https://localhost:7021/api/Account';
 
-  registeredUsers: User[] = [
-    new User('fanel', 'spargtot', 'Fane Spoitoru', 'fane@sparg.ro'),
-    new User('gigel', 'repartot', 'Giga Contra', 'gica@alesul.ro'),
-    new User('dorel', 'staudegeaba', 'Tudor Calmiara', 'tudor@cerneala.ro'),
-    new User('ionel', 'undeemaria', 'Ion Carte', 'ion@pamant.ro'),
-  ];
-  loggedUser: User[] = [];
-
-  loginUser(user:LoginUser): Observable<LoginUser> {
-    return this.http.post<LoginUser>(this.url+'/login',user);
-  }
 
   registerUser(user: User): Observable<User>{
     return this.http.post<User>(this.url+'/register',user);
   }
-
-  checkUser(username: string | null | undefined, password: string | null | undefined){
-    let user = this.registeredUsers.find(user => user.username === username && user.passwordHash === password);
-    if (user) {
-      this.loggedUser.push(user);
-      console.log(this.loggedUser);
-      // this.router.navigate(['/service']);
-    } else {
-      window.alert("Incorrect username or password");
-    }
+  loginUser(user:LoginUser): Observable<LoginUser> | Observable<any> {
+    return this.http.post<LoginUser>(this.url+'/login',user).pipe(
+      catchError(this.handleError)
+    );
+  }
+  logoutUser(){
+    localStorage.removeItem('token');
   }
 
   isLoggendIn(): boolean{
-    if (this.loggedUser.length === 1) {
-      return true;
-    } else {
-      return false;
-    }
+    return !!localStorage.getItem('token');
   }
-  constructor(private router:Router) { }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      window.alert(error.error);
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
+
 }

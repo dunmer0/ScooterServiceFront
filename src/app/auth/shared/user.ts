@@ -14,3 +14,17 @@ export class User {
   }
 }
 
+export class LoginUser{
+  username:string;
+  passwordHash:string;
+  jwt:string
+
+  constructor(username:string="",password:string="", jwt:string="") {
+    this.username = username;
+    this.passwordHash = password;
+    this.jwt = jwt;
+  }
+
+
+}
+
