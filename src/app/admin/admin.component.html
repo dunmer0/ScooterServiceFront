@@ -1,0 +1,40 @@
+<div class="mt-10 flex justify-center">
+    <table class="w-100 whitespace-no-wrap border">
+      <thead>
+        <tr class="bg-gray-400">
+          <th class=" px-4 py-2">Username</th>
+          <th class=" px-4 py-2">Name</th>
+          <th class=" px-4 py-2">Date Created</th>
+          <th class=" px-4 py-2">Account Status</th>
+          <th class=" px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr tr *ngFor="let member of members" class="hover:bg-gray-50">
+          <td class=" px-4 py-2">{{ member.userName }}</td>
+          <td class=" px-4 py-2">{{ member.name }}</td>
+          <td class=" px-4 py-2">{{ member.dateCreated | date: 'dd/MM/YYYY'}}</td>
+          <td class=" px-4 py-2">
+            <span class="inline-block px-2 py-1 rounded-full text-white font-semibold
+                        {{ member.accountStatus === 'Confirmed' ? 'bg-green-500' :
+                           member.accountStatus === 'Rejected' ? 'bg-red-500' :
+                           'bg-yellow-500' }}">
+              {{ member.accountStatus }}
+            </span>
+          </td>
+          <td class=" px-4 py-2 flex justify-center">
+            <button *ngIf="member.accountStatus === 'Pending'" (click)="confirmAccount(member.id)" class="mr-2 px-2 py-1 bg-green-500 text-white rounded-md hover:bg-green-600">
+              Confirm
+            </button>
+            <button *ngIf="member.accountStatus === 'Pending'" (click)="rejectAccount(member.id)" class="mr-2 px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">
+              Reject
+            </button>
+            <button (click)="deleteMember(member.id)" class="px-2 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

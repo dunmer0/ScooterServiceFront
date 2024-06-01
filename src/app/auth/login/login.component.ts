@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {LoginUser, User} from "../shared/user";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 import {catchError} from "rxjs";
+import { jwtDecode } from "jwt-decode";
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,6 @@ export class LoginComponent {
   });
 
 
-
   onSubmit() {
       if(this.loginForm.value.username && this.loginForm.value.password) {
         let user = new LoginUser(this.loginForm.value.username, this.loginForm.value.password);
@@ -39,7 +39,11 @@ export class LoginComponent {
           data => {
             this.user = data;
             localStorage.setItem('token', this.user.jwt);
-            this.router.navigate(['/service']);
+            if(this.userService.decodeToken(this.user.jwt).role === 'Admin'){
+              this.router.navigate(['/admin']);
+            }else{
+              this.router.navigate(['/service']);
+            }
           }
         );
       }
