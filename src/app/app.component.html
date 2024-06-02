@@ -9,10 +9,14 @@
     <app-login *ngIf="loadedFeature === 'login'"/>
     <app-register *ngIf="loadedFeature === 'register'"/>
   </div>
+  <div class="flex justify-center mt-10">
+    <router-outlet></router-outlet>
+  </div>
+
   <div class="absolute inset-x-0 bottom-0">
     <app-footer/>
   </div>
-  <router-outlet></router-outlet>
+
 </div>
 
 

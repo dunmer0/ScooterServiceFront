@@ -2,6 +2,7 @@ import {Component, EventEmitter, inject, Output} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {UserService} from "../auth/shared/user.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ import {UserService} from "../auth/shared/user.service";
 export class HeaderComponent {
   @Output() selected = new EventEmitter<string>();
   userService = inject(UserService);
+  location = inject(Location);
 
 constructor(protected router:Router) {}
 
@@ -25,5 +27,9 @@ constructor(protected router:Router) {}
   logout() {
    this.userService.logoutUser();
    this.router.navigate(['/']);
+  }
+
+  goBack() {
+    this.router.navigate(['/']);
   }
 }

@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {LoginUser, User} from "./user";
+import {LoginUser, ResetPasswordDto, User} from "./user";
 import {Router} from "@angular/router";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
@@ -55,6 +55,13 @@ export class UserService {
     )
   }
 
+  resetPassword(resetRequest: ResetPasswordDto):Observable<any>{
+    const resetUrl = `${this.url}/reset-password`;
+    return this.http.put<any>(resetUrl,resetRequest).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -62,7 +69,7 @@ export class UserService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
-      window.alert(error.error);
+      window.alert(error.error.title);
       console.error(
         `Backend returned code ${error.status}, body was: `, error.error);
     }
