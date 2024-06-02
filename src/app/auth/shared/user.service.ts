@@ -3,6 +3,7 @@ import {LoginUser, User} from "./user";
 import {Router} from "@angular/router";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
+import { jwtDecode } from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,24 @@ export class UserService {
 
   isLoggendIn(): boolean{
     return !!localStorage.getItem('token');
+  }
+  decodeToken(token: string): any {
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      return decodedToken;
+    }
+  }
+  isAdmin(): boolean {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        return this.decodeToken(token).role === 'Admin';
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return false;
+      }
+    }
+    return false;
   }
 
   private handleError(error: HttpErrorResponse) {
