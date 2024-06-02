@@ -48,6 +48,13 @@ export class UserService {
     return false;
   }
 
+  forgotPasswordRequest(email:string):Observable<any>{
+    const resetUrl = `${this.url}/forgot-password/${email}`;
+    return this.http.post<any>(resetUrl,{}).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

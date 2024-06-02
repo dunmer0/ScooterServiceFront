@@ -23,6 +23,7 @@ export class LoginComponent {
   userService=inject(UserService);
   router = inject(Router);
   user:LoginUser = new LoginUser();
+  reset:string = '';
 
   forgotPassword=false;
 
@@ -30,6 +31,9 @@ export class LoginComponent {
     username: new FormControl('', [Validators.pattern(/^[a-zA-Z0-9]+$/), Validators.required]),
     password: new FormControl('',[Validators.pattern(/^[a-zA-Z0-9]+$/), Validators.required])
   });
+  resetForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required])
+  })
 
 
   onSubmit() {
@@ -48,15 +52,21 @@ export class LoginComponent {
         );
       }
 
+
+
     this.loginForm.reset();
     // console.log(this.loginForm.valid);
   }
 
 
-
-
-
-  resetPassword() {
-    console.log('The password reset value is: NULL')
+  onSubmitReset() {
+    this.userService.forgotPasswordRequest(this.resetForm.value.email).subscribe(
+      response => {
+        window.alert(response.value.title + "\n" + response.value.message);
+      }
+    )
+    this.resetForm.reset();
+    this.reset = '';
   }
 }
+

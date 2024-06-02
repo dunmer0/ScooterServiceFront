@@ -16,9 +16,11 @@ import {FooterComponent} from "./footer/footer.component";
 export class AppComponent {
   title = 'scooter-service-app';
   loadedFeature:string = 'login';
+  registerFeature:string = '';
 
   constructor(protected router:Router) {
   }
+
 
 
   onNavigate(feature: string) {
