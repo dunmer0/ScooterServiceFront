@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup = new FormGroup({});
   submitted: boolean = false;
   errorMessages: string[] = []
+  response: any;
 
   initForm() {
     this.registerForm = this.formBuilder.group({
@@ -42,7 +43,10 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
     this.errorMessages = [];
     if (this.registerForm.valid) {
-      this.userService.registerUser(this.registerForm.value).subscribe({});
+      this.userService.registerUser(this.registerForm.value).subscribe((data) => {
+        this.response = data;
+        window.alert(this.response.value.message);
+      });
     }
     this.registerForm.reset();
 
