@@ -4,9 +4,6 @@ import {NgClass, NgIf} from "@angular/common";
 import {UserService} from "../shared/user.service";
 import {Router} from "@angular/router";
 import {LoginUser, User} from "../shared/user";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {catchError} from "rxjs";
-import { jwtDecode } from "jwt-decode";
 
 @Component({
   selector: 'app-login',

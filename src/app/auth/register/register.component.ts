@@ -38,7 +38,6 @@ export class RegisterComponent implements OnInit {
     this.initForm();
   }
 
-
   register() {
     this.submitted = true;
     this.errorMessages = [];

@@ -1,1 +1,53 @@
-<p>mechanic works!</p>
+<div
+  class="pt-[100px] text-center text-2xl font-extrabold text-green-900 font-san-serif"
+>
+  Welcome to Service Panel!
+</div>
+
+<div class="wrapper-container flex justify-center">
+  <table class="mt-5 border">
+    <thead>
+      <tr class="bg-green-500 border-2 border-green-600">
+        <th class="px-4 py-4">Scooter</th>
+        <th class="px-4 py-2">Assiged to</th>
+        <th class="px-4 py-2">Issues found</th>
+        <th class="px-4 py-2">Reparation Status</th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        tr
+        *ngFor="let reparation of reparations"
+        class="bg-green-50 border-2 border-green-600 hover:bg-green-100"
+      >
+        <td class="px-4 py-2 text-center">{{ reparation.scooter.brand }}</td>
+        <td class="px-4 py-2 text-center">{{ "reparation.user.name" }}</td>
+        <td class="px-4 py-2 text-center">{{ reparation.issues.length }}</td>
+        <td class="px-4 py-2 text-center">
+            <span
+            class="inline-block px-2 py-1 rounded-full text-black font-semibold
+                        {{
+              reparation.status === '2'
+                ? 'bg-green-500'
+                : reparation.status === '1'
+                ? 'bg-red-500'
+                : 'bg-yellow-500'
+            }}"
+          >
+            {{ reparation.status }}
+          </span>
+        
+        </td>
+        <td class="px-4 py-2 flex justify-center">
+          <button
+            (click)="deleteReparation(reparation.id)"
+            class="px-2 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

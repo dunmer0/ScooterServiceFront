@@ -1,22 +1,24 @@
-<div class="container mx-auto grid grid-cols-1 content-start bg-blue-100 h-dvh relative">
-  <div class="flex justify-center h-12 bg-gray-400 rounded-t-2xl">
+<div class="container mx-auto bg-green-100 h-dvh relative">
     <app-header
       (selected)="onNavigate($event)"/>
-  </div>
-  <div
-    *ngIf="router.url === '/'"
-    class="flex content-center justify-center justify-self-center w-1/2 bg-gray-400 h-72 rounded-2xl mt-16 min-[390px]:mt-6">
-    <app-login *ngIf="loadedFeature === 'login'"/>
-    <app-register *ngIf="loadedFeature === 'register'"/>
-  </div>
-  <div class="flex justify-center mt-10">
-    <router-outlet></router-outlet>
-  </div>
 
-  <div class="absolute inset-x-0 bottom-0">
+  <div *ngIf="router.url === '/'" class="wrapper-container flex flex-col items-center justify-center w-full max-w-screen-md mx-auto">
+    <div class="flex flex-col lg:flex-row items-center justify-center bg-green-200 rounded-lg">
+      <div class="w-full lg:w-1/2 lg:order-1">
+        <img src="./../assets/test.jpeg" alt="Scooter service image" class="object-cover w-full h-full rounded-md opacity-70">
+      </div>
+      <div class="w-full lg:w-1/2 lg:order-2 lg:text-center">
+        <div class="w-4/5 lg:w-full">
+          <app-login *ngIf="loadedFeature === 'login'"/>
+          <app-register *ngIf="loadedFeature === 'register'"/>
+        </div>
+      </div>
+    </div>
+  </div>  
     <app-footer/>
-  </div>
-
+  <router-outlet></router-outlet>
 </div>
+
+
 
 
