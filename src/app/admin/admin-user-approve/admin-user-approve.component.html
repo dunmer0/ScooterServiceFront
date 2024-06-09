@@ -1,0 +1,71 @@
+<div
+  class="pt-[100px] text-center text-2xl font-extrabold text-green-900 font-san-serif"
+>
+  User Management
+</div>
+
+<div class="flex items-center justify-center mt-5">
+<button class="bg-green-500 font-bold text-white py-2 px-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+              (click)="goBack()">Back</button>
+            </div>
+
+<div class="mt-5 wrapper-container flex justify-center">
+
+    <table class="border">
+      <thead>
+        <tr class="bg-green-500 border-2 border-green-600">
+          <th class="px-4 py-4">Username</th>
+          <th class="px-4 py-2">Name</th>
+          <th class="px-4 py-2">Date Created</th>
+          <th class="px-4 py-2">Account Status</th>
+          <th class="px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr tr *ngFor="let member of members" class="bg-green-50 border-2 border-green-600 hover:bg-green-100">
+          <td class="px-4 py-2 text-center">{{ member.userName }}</td>
+          <td class="px-4 py-2 text-center">{{ member.name }}</td>
+          <td class="px-4 py-2 text-center">
+            {{ member.dateCreated | date : "dd/MM/YYYY" }}
+          </td>
+          <td class="px-4 py-2 text-center">
+            <span
+              class="inline-block px-2 py-1 rounded-full text-black font-semibold
+                          {{
+                member.accountStatus === 'Confirmed'
+                  ? 'bg-green-500'
+                  : member.accountStatus === 'Rejected'
+                  ? 'bg-red-500'
+                  : 'bg-yellow-500'
+              }}"
+            >
+              {{ member.accountStatus }}
+            </span>
+          </td>
+          <td class="px-4 py-2 flex justify-center">
+            <button
+              *ngIf="member.accountStatus === 'Pending'"
+              (click)="confirmAccount(member.id)"
+              class="mr-2 px-2 py-1 bg-green-500 text-white rounded-md hover:bg-green-600"
+            >
+              Confirm
+            </button>
+            <button
+              *ngIf="member.accountStatus === 'Pending'"
+              (click)="rejectAccount(member.id)"
+              class="mr-2 px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600"
+            >
+              Reject
+            </button>
+            <button
+              (click)="deleteMember(member.id)"
+              class="px-2 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

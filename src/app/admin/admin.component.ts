@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AdminService } from './shared/admin.service';
 import { MemberView } from './shared/MemberView';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -11,43 +12,18 @@ import { DatePipe, NgFor, NgIf } from '@angular/common';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  members: MemberView[] = [];
-  response: any;
-
-  constructor(private adminService: AdminService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.adminService.getMembers().subscribe(data => {
-      this.members = data;
-    });
+  
   }
 
-  deleteMember(id: string): void {
-    this.adminService.deleteMember(id).subscribe(() => {
-      this.members = this.members.filter(member => member.id !== id);
-    });
+  goToReparations(){
+    this.router.navigate(['admin/reparations']);
   }
 
-  confirmAccount(id: string): void {
-    this.adminService.confirmAccount(id).subscribe(response => {
-      this.response = response;
-      window.alert(this.response.value.message);
-      const member = this.members.find(m => m.id === id);
-      if (member) {
-        member.accountStatus = 'Confirmed';
-      }
-    });
+  goToUsers(){
+    this.router.navigate(['admin/user-management']);
   }
 
-  rejectAccount(id: string): void {
-    this.adminService.rejectAccount(id).subscribe(response => {
-      this.response = response;
-      console.log(response);
-      window.alert(this.response.value.message);
-      const member = this.members.find(m => m.id === id);
-      if (member) {
-        member.accountStatus = 'Rejected';
-      }
-    });
-  }
 }
