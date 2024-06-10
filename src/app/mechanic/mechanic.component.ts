@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReparationView } from './shared/ReparationView';
 import { MechanicService } from './shared/mechanic.service';
-import { UserService } from '../auth/shared/user.service';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
@@ -15,7 +14,7 @@ export class MechanicComponent implements OnInit{
   reparations: ReparationView[] = [];
   response: any;
 
-  constructor(private mechanicService: MechanicService, private userService: UserService){}
+  constructor(private mechanicService: MechanicService){}
 
   ngOnInit(): void {
     this.mechanicService.getReparations().subscribe(data => {

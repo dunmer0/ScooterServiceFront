@@ -1,19 +1,14 @@
 <div
-  class="pt-[100px] text-center text-2xl font-extrabold text-green-900 font-san-serif"
+  class="pt-[100px] text-center text-3xl font-extrabold text-green-500 font-san-serif"
 >
   User Management
 </div>
 
-<div class="flex items-center justify-center mt-5">
-<button class="bg-green-500 font-bold text-white py-2 px-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
-              (click)="goBack()">Back</button>
-            </div>
-
-<div class="mt-5 wrapper-container flex justify-center">
+<div class="mt-5 table-wrapper flex justify-center">
 
     <table class="border">
       <thead>
-        <tr class="bg-green-500 border-2 border-green-600">
+        <tr class="sticky top-0 bg-green-500 border-2 border-green-600">
           <th class="px-4 py-4">Username</th>
           <th class="px-4 py-2">Name</th>
           <th class="px-4 py-2">Date Created</th>
@@ -69,3 +64,7 @@
     </table>
   </div>
   
+  <div class="flex items-center justify-center mt-5">
+    <button class="bg-green-500 font-bold text-black py-2 px-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+                  (click)="goBack()">Back to Admin Panel!</button>
+                </div>

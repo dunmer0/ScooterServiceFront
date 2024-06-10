@@ -1,1 +1,183 @@
-<p>admin-reparations works!</p>
+<div class="pt-[100px] text-center text-3xl font-extrabold text-green-500 font-san-serif cursor-default">Reparations</div>
+
+<div class="flex flex-wrap justify-evenly m-8 h-[400px] border rounded shadow-md bg-green-50">
+  <div class="m-4 table-wrapper">
+    <table>
+      <thead>
+        <tr class="sticky top-0 bg-green-500 border-2 border-green-600 cursor-default">
+          <th class="px-4 py-2">Scooter</th>
+          <th class="px-4 py-2">Assiged to</th>
+          <th class="px-4 py-2">Issues found</th>
+          <th class="px-4 py-2">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reparation of reparations"
+          class="bg-green-50 border-2 border-green-600 hover:bg-green-100 cursor-pointer"
+          (click)="selectReparation(reparation)"
+        >
+          <td class="px-4 py-2 text-center">
+            {{ reparation.scooter.brand }}
+          </td>
+          <td class="px-4 py-2 text-center">reparation add failure</td>
+          <td class="px-4 py-2 text-center">
+            {{ reparation.issues.length }}
+          </td>
+          <td class="px-4 py-2 text-center">
+            <span
+              class="inline-block px-2 py-1 rounded-full text-black font-semibold
+                      {{
+                reparation.status === '2'
+                  ? 'bg-green-500'
+                  : reparation.status === '1'
+                  ? 'bg-blue-500'
+                  : 'bg-yellow-500'
+              }}"
+            >
+              {{
+                reparation.status === "2"
+                  ? "Completed"
+                  : reparation.status === "1"
+                  ? "In progress"
+                  : "Pending"
+              }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="p-4" *ngIf="selectReparation">
+    <div class="border-b border-green-600 flex cursor-default">
+      <div class="p-4 bg-green-500 text-black font-bold">
+        Reparation's details
+      </div>
+      <div
+        class="p-4 cursor-pointer hover:bg-green-400"
+        [ngClass]="{
+          'bg-green-400 text-black font-semibold': selectedTab === 1
+        }"
+        (click)="selectedTab = 1"
+      >
+        Scooter info
+      </div>
+      <div
+        class="p-4 cursor-pointer hover:bg-green-400"
+        [ngClass]="{
+          'bg-green-400 text-black font-semibold': selectedTab === 2
+        }"
+        (click)="selectedTab = 2"
+      >
+        Assigned mechanic
+      </div>
+      <div
+        class="p-4 cursor-pointer hover:bg-green-400"
+        [ngClass]="{
+          'bg-green-400 text-black font-semibold': selectedTab === 3
+        }"
+        (click)="selectedTab = 3"
+      >
+        Issues discovered
+      </div>
+    </div>
+    <div *ngIf="selectedReparation">
+      <div *ngIf="selectedTab === 1" class="p-4 cursor-default">
+        <h3 class="text-2xl text-center text-green-500 font-bold">
+          Scooter details
+        </h3>
+        <span class="text-xl font-semibold text-green-500">Brand: </span>
+        <span class="font-semibold italic">{{
+          selectedReparation.scooter.brand
+        }}</span
+        ><br />
+        <span class="text-xl font-semibold text-green-500">Model: </span>
+        <span class="font-semibold italic">{{
+          selectedReparation.scooter.model
+        }}</span
+        ><br />
+        <span class="text-xl font-semibold text-green-500">Power: </span>
+        <span class="font-semibold italic">{{
+          selectedReparation.scooter.power
+        }}</span
+        ><br />
+        <span class="text-xl font-semibold text-green-500"
+          >Client's name:
+        </span>
+        <span class="font-semibold italic">{{
+          selectedReparation.scooter.scooterOwner
+        }}</span
+        ><br />
+        <span class="text-xl font-semibold text-green-500"
+          >Client's description of the issue:
+        </span>
+        <span class="font-semibold italic">{{
+          selectedReparation.scooter.issueDescription
+        }}</span
+        ><br />
+      </div>
+
+      <div *ngIf="selectedTab === 2" class="p-4 cursor-default">
+        <h3 class="text-2xl text-center text-green-500 font-bold">
+          Mechanic details
+        </h3>
+        <span class="text-xl font-semibold text-green-500">Username: </span>
+        <span class="font-semibold italic">{{
+          selectedReparation.user.userName
+        }}</span
+        ><br />
+        <span class="text-xl font-semibold text-green-500">Name: </span>
+        <span class="font-semibold italic">{{
+          selectedReparation.user.name
+        }}</span
+        ><br />
+        <span class="text-xl font-semibold text-green-500"
+          >Working since:
+        </span>
+        <span class="font-semibold italic">{{
+          selectedReparation.user.dateCreated
+        }}</span
+        ><br />
+      </div>
+
+      <div *ngIf="selectedTab === 3" class="p-4 cursor-default">
+        <h3 class="text-2xl text-center text-green-500 font-bold">
+          Issues found by mechanic: {{ selectedReparation.issues.length }}
+        </h3>
+        <div class="flex flex-wrap justify-center">
+          <table class="mt-5 border">
+            <thead>
+              <tr class="bg-green-500 border-2 border-green-600">
+                <th class="px-2 py-1">Issue</th>
+                <th class="px-2 py-1">Service hours</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let issue of selectedReparation.issues"
+                class="bg-green-50 border-2 border-green-600 hover:bg-green-100"
+              >
+                <td class="px-2 py-1 text-center">{{ issue.name }}</td>
+                <td class="px-2 py-1 text-center">{{ issue.hoursOfWork }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!selectedReparation">
+      <div class="mt-5 text-center font-semibold cursor-default">
+        Please select a reparation to view details.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="flex items-center justify-center">
+  <button
+    class="bg-green-500 font-bold text-black py-2 px-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+    (click)="goBack()"
+  >
+    Back to Admin Panel!
+  </button>
+</div>
