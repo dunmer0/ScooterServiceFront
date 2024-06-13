@@ -14,10 +14,15 @@
       <button class="bg-green-500 font-bold text-black py-2 px-4 w-28 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
               (click)="onSelected('register')">Register</button>
     </div>
-    <div *ngIf="router.url !== '/'">
+    <div *ngIf="router.url.includes('reset-password')">
+      <button class="bg-green-500 font-bold text-black py-2 px-4 w-28 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+              (click)="logout()">Back</button>
+    </div>
+    <div *ngIf="router.url !== '/' && !router.url.includes('reset-password')">
       <button class="bg-green-500 font-bold text-black py-2 px-4 w-28 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
               (click)="logout()">Logout</button>
     </div>
+
   </div>
 
 </div>
