@@ -1,0 +1,37 @@
+<div
+  class="pt-[100px] text-center text-2xl font-extrabold text-green-900 font-san-serif"
+>
+  Scooter details
+</div>
+<br>
+
+<div class="flex flex-row space-x-4 justify-center">
+    <div class="border bg-green-100 rounded overflow-hidden shadow-lg">
+    <img src="./../../../assets/reparations.jpeg" alt="Reparations" class="object-cover w-80 h-80 rounded-md opacity-70" />
+</div>
+
+<div class="border bg-green-200 rounded overflow-hidden shadow-lg w-80 h-80" *ngIf = "scooter">
+    <div class="mx-2 mt-20">
+    <span class="text-xl font-semibold text-green-500">Brand: </span>
+    <span class="font-semibold italic">{{scooter.brand}}</span><br>
+    <span class="text-xl font-semibold text-green-500">Model: </span>
+    <span class="font-semibold italic">{{scooter.model}}</span><br>
+    <span class="text-xl font-semibold text-green-500">Power: </span>
+    <span class="font-semibold italic">{{scooter.power}}</span><br>
+    <span class="text-xl font-semibold text-green-500">Client's name: </span>
+    <span class="font-semibold italic">{{scooter.scooterOwner}}</span><br>
+    <span class="text-xl font-semibold text-green-500">Client's description of the issue: </span><br>
+    <span class="font-semibold italic">{{scooter.issueDescription}}</span><br>
+    </div>
+    <br>
+  </div>
+</div>
+
+<div class="mt-10 flex items-center justify-center">
+    <button
+      class="bg-green-500 font-bold text-black py-2 px-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+      (click)="goBack()"
+    >
+      Back to Service Panel!
+    </button>
+  </div>

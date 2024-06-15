@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
 import { ReparationView } from './ReparationView';
 import { Observable } from 'rxjs';
+import { IssueView } from './IssueView';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MechanicService {
+  public issues = signal<IssueView[]>([]);
+
   private http: HttpClient = inject(HttpClient);
   private url: string = 'https://localhost:7021/api/Reparation';
 
@@ -31,4 +34,13 @@ export class MechanicService {
   rejectAccount(id: string): Observable<string> {
     return this.http.post<string>(`${this.url}/reject-account/${id}`, null);
   }
-}
+
+  getIssuesByReparationId(reparationId: string) {
+  this.http.get<ReparationView>(`${this.url}/${reparationId}`).subscribe(response =>{
+    this.issues.set(response.issues);
+    console.log(response);
+  })
+  };
+  // return this.http.get<any[]>(`${this.url}/${reparationId}`);
+  }
+  

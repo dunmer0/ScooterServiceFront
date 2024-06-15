@@ -1,0 +1,25 @@
+<div
+  class="pt-[100px] text-center text-2xl font-extrabold text-green-900 font-san-serif"
+>
+  Issues found by mechanic
+</div>
+<br>
+<div class="flex flex-wrap justify-center">
+    <table class="mt-5 border">
+      <thead>
+        <tr class="bg-green-500 border-2 border-green-600">
+          <th class="px-2 py-1">Issue</th>
+          <th class="px-2 py-1">Service hours</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let issue of this.mechanicService.issues()"
+          class="bg-green-50 border-2 border-green-600 hover:bg-green-100"
+        >
+          <td class="px-2 py-1 text-center">{{ issue.name }}</td>
+          <td class="px-2 py-1 text-center">{{ issue.hoursOfWork }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
