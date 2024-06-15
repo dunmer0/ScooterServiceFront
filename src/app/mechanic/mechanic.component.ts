@@ -6,13 +6,14 @@ import { Router } from '@angular/router';
 
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { IssueView } from './shared/IssueView';
+import {StatusPipePipe} from "../pipes/status-pipe.pipe";
 
 
 
 @Component({
   selector: 'app-mechanic',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass],
+  imports: [NgFor, NgIf, NgClass, StatusPipePipe],
   templateUrl: './mechanic.component.html',
   styleUrl: './mechanic.component.css',
 })
