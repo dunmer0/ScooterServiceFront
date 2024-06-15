@@ -9,3 +9,8 @@ export interface ReparationView{
     status: string
     issues: IssueView[]
 }
+
+export  interface ReparationStatus{
+  id: number;
+  status: number;
+}

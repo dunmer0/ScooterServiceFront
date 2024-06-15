@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
-import { ReparationView } from './ReparationView';
+
+import { Injectable, inject, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IssueView } from './IssueView';
+import { ReparationStatus, ReparationView } from './ReparationView';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class MechanicService {
   private http: HttpClient = inject(HttpClient);
   private url: string = 'https://localhost:7021/api/Reparation';
 
-  constructor() {}
+  constructor() { }
 
   getReparations(): Observable<ReparationView[]> {
     return this.http.get<ReparationView[]>(`${this.url}`);
@@ -27,20 +28,17 @@ export class MechanicService {
     return this.http.delete<void>(`${this.url}/${id}`);
   }
 
-  confirmAccount(id: string): Observable<string> {
-    return this.http.post<string>(`${this.url}/confirm-account/${id}`, null);
+  updateReperationStatus(status: ReparationStatus): Observable<ReparationView> {
+    return this.http.put<ReparationView>(this.url, status);
   }
 
-  rejectAccount(id: string): Observable<string> {
-    return this.http.post<string>(`${this.url}/reject-account/${id}`, null);
-  }
+
 
   getIssuesByReparationId(reparationId: string) {
-  this.http.get<ReparationView>(`${this.url}/${reparationId}`).subscribe(response =>{
-    this.issues.set(response.issues);
-    console.log(response);
-  })
-  };
-  // return this.http.get<any[]>(`${this.url}/${reparationId}`);
+    this.http.get<ReparationView>(`${this.url}/${reparationId}`).subscribe(response => {
+      this.issues.set(response.issues);
+      console.log(response);
+    })
   }
-  
+
+}

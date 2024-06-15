@@ -7,47 +7,38 @@
 <div class="wrapper-container flex justify-center">
   <table class="mt-5 border">
     <thead>
-      <tr class="bg-green-500 border-2 border-green-600">
-        <th class="px-4 py-4">Scooter</th>
-        <th class="px-4 py-2">Assiged to</th>
-        <th class="px-4 py-2">Issues found</th>
-        <th class="px-4 py-2">Reparation Status</th>
-        <th class="px-4 py-2">Actions</th>
-      </tr>
+    <tr class="bg-green-500 border-2 border-green-600">
+      <th class="px-4 py-4">Scooter</th>
+      <th class="px-4 py-2">Assiged to</th>
+      <th class="px-4 py-2">Issues found</th>
+      <th class="px-4 py-2">Reparation Status</th>
+      <th class="px-4 py-2">Actions</th>
+    </tr>
     </thead>
     <tbody>
-      <tr
-        tr
-        *ngFor="let reparation of reparations"
-        class="bg-green-50 border-2 border-green-600 hover:bg-green-100"
-      >
+      @for (reparation of reparations; track reparation.id){
+      <tr class="bg-green-50 border-2 border-green-600 hover:bg-green-100">
         <td class="px-4 py-2 text-center" (click)="goToScooterDetails(reparation.scooter.id)">{{ reparation.scooter.brand }}</td>
         <td class="px-4 py-2 text-center">{{ "reparation.user.name" }}</td>
         <td class="px-4 py-2 text-center" (click)="goToIssuesDetails(reparation.id)">{{ reparation.issues.length }}</td>
         <td class="px-4 py-2 text-center">
-            <span
-            class="inline-block px-2 py-1 rounded-full text-black font-semibold
-                        {{
-              reparation.status === '2'
-                ? 'bg-green-500'
-                : reparation.status === '1'
-                ? 'bg-red-500'
-                : 'bg-yellow-500'
-            }}"
-          >
-            {{ reparation.status }}
+            <span class="inline-block px-2 py-1 rounded-full text-black font-semibold w-full"
+            [ngClass]=" reparation.status == '0' ? 'bg-red-500' : reparation.status == '1' ? 'bg-yellow-500' : 'bg-green-500'">
+              <button (click)="onChaneStatus(reparation)">
+                 {{ reparation.status }}
+              </button>
           </span>
-        
-        </td>
-        <td class="px-4 py-2 flex justify-center">
-          <button
-            (click)="deleteReparation(reparation.id)"
-            class="px-2 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600"
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
+      </td>
+      <td class="px-4 py-2 flex justify-center">
+        <button
+          (click)="deleteReparation(reparation.id)"
+          class="px-2 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+      }
     </tbody>
   </table>
 </div>
