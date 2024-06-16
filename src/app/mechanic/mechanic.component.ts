@@ -3,7 +3,7 @@ import { ReparationView } from './shared/ReparationView';
 import { MechanicService } from './shared/mechanic.service';
 import { NgFor, NgIf } from '@angular/common';
 import { ReparationNew } from './shared/ReparationNew';
-import { Router } from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-mechanic',
@@ -16,7 +16,15 @@ export class MechanicComponent implements OnInit{
   reparations: ReparationView[] = [];
   response: any;
 
-  constructor(private mechanicService: MechanicService, private router: Router){}
+  constructor(private mechanicService: MechanicService, private router: Router){
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.mechanicService.getReparations().subscribe(data =>{
+          this.reparations = data;
+        })
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.mechanicService.getReparations().subscribe(data => {
