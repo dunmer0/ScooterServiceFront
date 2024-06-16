@@ -69,7 +69,7 @@ export class UserService {
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
-      window.alert("Username of password incorrect");
+      window.alert(error.error.title);
       console.error(
         `Backend returned code ${error.status}, body was: `, error.error);
     }

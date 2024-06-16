@@ -27,7 +27,9 @@ export class ResetPasswordComponent {
   resetPassword() {
     if (this.resetForm.valid) {
       let resetRequest: ResetPasswordDto = new ResetPasswordDto (this.resetForm.value.email, this.token, this.resetForm.value.password);
-      this.userService.resetPassword(resetRequest).subscribe()
+      this.userService.resetPassword(resetRequest).subscribe(response => {
+        console.log(response)
+      })
       console.log(resetRequest);
     }
 
