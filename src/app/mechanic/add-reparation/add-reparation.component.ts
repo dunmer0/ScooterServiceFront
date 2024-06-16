@@ -6,8 +6,8 @@ import { IssueNew } from '../shared/IssueNew';
 import { NgFor, NgIf } from '@angular/common';
 import { MechanicService } from '../shared/mechanic.service';
 import { from } from 'rxjs';
+import { Router } from '@angular/router';
 
-type IssueForm = FormGroup<{text: FormControl<string>}>
 
 @Component({
   selector: 'app-add-reparation',
@@ -20,7 +20,7 @@ export class AddReparationComponent implements OnInit {
 
     formBuilder = inject(FormBuilder);
     mechaniService = inject(MechanicService);
-    reparationForm: FormGroup = new FormGroup({});
+    router = inject(Router);
 
 
     constructor() { }
@@ -30,6 +30,7 @@ export class AddReparationComponent implements OnInit {
       brand : '', 
       model : '', 
       power : 1, 
+      issueDescription: ''
     }
 
     issueNew: IssueNew = {
@@ -37,58 +38,57 @@ export class AddReparationComponent implements OnInit {
       hoursOfWork: 1
     }
 
-
     ngOnInit(): void {
-  
-      this.reparationForm = this.formBuilder.group({
-        scooterOwner: new FormControl(''),
-        brand: new FormControl(''),
-        model: new FormControl(''),
-        power: new FormControl(''),
-        issues: this.formBuilder.array([])
-      });
+      
     }
-  
+
+    reparationForm = this.formBuilder.group({
+      scooterOwner: [''],
+        brand: [''],
+        model: [''],
+        power: [''],
+        issueDescription: [''],
+        issues: this.formBuilder.array([])
+    })
+
     get issues() {
       return this.reparationForm.controls["issues"] as FormArray;
     }
-  
+
     addIssue() {
-      const issueForm = this.formBuilder.group({
-          name: ['', Validators.required],
-          hourOfWork: [1, [Validators.required, Validators.min(1)]]
-      });
-      this.issues.push(issueForm);
+      this.issues.push(
+        this.formBuilder.group({
+          name: [''],
+          hoursOfWork: [''],
+        })
+      );
     }
 
+   
     deleteIssue(issueIndex: number) {
       this.issues.removeAt(issueIndex);
     }
 
-  
+    onCancel(){
+      this.router.navigate(['/service']);
+    }
 
     onSubmit() {
-    this.scooterNew.scooterOwner = this.reparationForm.value.scooterOwner;
-    this.scooterNew.brand = this.reparationForm.value.brand;
-    this.scooterNew.model = this.reparationForm.value.model;
-    this.scooterNew.power = this.reparationForm.value.power;
-// const formValues = this.reparationForm.value;
-//     console.log(formValues);
+      const formValues = this.reparationForm.value;
+    this.scooterNew.scooterOwner = formValues.scooterOwner ?? '';
+    this.scooterNew.brand = formValues.brand ?? '';
+    this.scooterNew.model = formValues.model ?? '';
+    this.scooterNew.power = (formValues.power ?? 1) as number;
+    this.scooterNew.issueDescription = formValues.issueDescription ?? ''
 
-//     const issuesArray = formValues.issues;
-//       console.log('Array of Issues:', issuesArray);
-
-    const issuesArray = this.reparationForm.get('issues') as FormArray;
-    
-    
-    
-    console.log(this.issues);
       const reparationNew: ReparationNew = {
         scooter: this.scooterNew,
-        issues: issuesArray.value
+        issues: formValues.issues as IssueNew[]
       };
       console.log(reparationNew);
       this.mechaniService.createReparation(reparationNew).subscribe();
+      this.reparationForm.reset();
+      this.router.navigate(['/service']);
     }
     }
 

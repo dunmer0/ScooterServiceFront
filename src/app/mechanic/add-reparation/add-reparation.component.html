@@ -22,6 +22,10 @@
             <label for="power" class="flex font-bold text-green-700">Power</label>
             <input id="power" type="number" min="0" formControlName="power" required class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
           </div>
+          <div class="mt-2">
+            <label for="issueDescription" class="flex font-bold text-green-700">Issue Description</label>
+            <input id="issueDescription" type="text" formControlName="issueDescription" required class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+          </div>
         <!-- </div> -->
         <!-- <h3 class="text-xl text-green-700 font-semibold">Issues</h3>
         <div class="overflow-y-auto h-16">
@@ -41,8 +45,8 @@
   <div class="overflow-y-auto h-16">
     <div [formGroup]="reparationForm">
       <ng-container formArrayName="issues">
-        <ng-container *ngFor="let issue of issues.controls; let i = index">
-          <div [formGroupName]="i" class="mt-1 flex space-x-2">
+        <ng-container [formGroupName]="i" *ngFor="let issue of issues.controls; let i = index">
+          <div class="mt-1 flex space-x-2">
             <input type="text" formControlName="name" placeholder="Issue name" class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
             <input type="number" min="1" formControlName="hoursOfWork" placeholder="Work hours" class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
             <button (click)="deleteIssue(i)" class="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600">Delete</button>
@@ -55,6 +59,7 @@
         <div class="flex justify-center mt-4">
         <button (click)="addIssue()" class="bg-green-500 font-bold text-white py-2 px-4 m-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Add Issue</button>
           <button (click)="onSubmit()" type="submit" class="bg-green-500 font-bold text-white py-2 px-4 m-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Submit</button>
+          <button (click)="onCancel()" type="submit" class="bg-red-500 font-bold text-white py-2 px-4 m-2 rounded-md border-2 border-red-600 hover:bg-red-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Cancel</button>
         </div>
       </form>
     </div>

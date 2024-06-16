@@ -3,4 +3,5 @@ export interface ScooterNew{
     brand: string;
     model: string;
     power: number;
+    issueDescription: string
 }
