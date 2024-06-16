@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ReparationView } from './shared/ReparationView';
 import { MechanicService } from './shared/mechanic.service';
 import { NgFor, NgIf } from '@angular/common';
+import { ReparationNew } from './shared/ReparationNew';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mechanic',
@@ -14,15 +16,16 @@ export class MechanicComponent implements OnInit{
   reparations: ReparationView[] = [];
   response: any;
 
-  constructor(private mechanicService: MechanicService){}
+  constructor(private mechanicService: MechanicService, private router: Router){}
 
   ngOnInit(): void {
     this.mechanicService.getReparations().subscribe(data => {
       this.reparations = data;
+      console.log(data)
     });
   }
 
-  createReparation(reparation:ReparationView){
+  createReparation(reparation:ReparationNew){
     this.mechanicService.createReparation(reparation).subscribe();
   }
 
@@ -31,5 +34,8 @@ export class MechanicComponent implements OnInit{
 
   }
 
+  goToAddReparation() {
+    this.router.navigate(['service/add-reparation']);
+  }
 
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ReparationView } from './ReparationView';
 import { Observable } from 'rxjs';
+import { ReparationNew } from './ReparationNew';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,9 @@ export class MechanicService {
     return this.http.get<ReparationView[]>(`${this.url}`);
   }
 
-  createReparation(reparation: ReparationView): Observable<ReparationView> {
-    return this.http.post<ReparationView>(`${this.url}`, null)
+
+  createReparation(reparation: ReparationNew): Observable<ReparationNew> {
+    return this.http.post<ReparationNew>(`${this.url}/add-reparation`, reparation)
   }
 
   deleteReparation(id: string): Observable<void> {

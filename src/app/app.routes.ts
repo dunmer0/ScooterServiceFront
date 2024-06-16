@@ -7,6 +7,7 @@ import { adminGuard } from './auth/guard/auth-guard/admin.guard';
 import { AdminReparationsComponent } from './admin/admin-reparations/admin-reparations.component';
 import { AdminUserApproveComponent } from './admin/admin-user-approve/admin-user-approve.component';
 import {ResetPasswordComponent} from "./auth/reset-password/reset-password.component";
+import { AddReparationComponent } from './mechanic/add-reparation/add-reparation.component';
 
 export const routes: Routes = [
   {path: 'service', canActivate:[authGuard] , component:MechanicComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {path:'admin/reparations', canActivate:[adminGuard], component:AdminReparationsComponent},
   {path:'admin/user-management', canActivate:[adminGuard], component:AdminUserApproveComponent},
   {path: 'account/reset-password', component: ResetPasswordComponent},
+  {path: 'service/add-reparation', component: AddReparationComponent},
 
 ];
 
