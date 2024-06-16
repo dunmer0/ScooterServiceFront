@@ -1,7 +1,5 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { IssueView } from '../shared/IssueView';
-import { NgFor } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { Location, NgFor } from '@angular/common';
 import { MechanicService } from '../shared/mechanic.service';
 
 @Component({
@@ -15,8 +13,13 @@ export class IssueDetailsComponent {
  mechanicService = inject(MechanicService);
  issues = this.getIssues();
  
+constructor(private location: Location){}
 
  getIssues(){
   this.mechanicService.issues();
  }
+
+ goBack(){
+  this.location.back();
+}
 }

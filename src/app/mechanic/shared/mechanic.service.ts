@@ -32,8 +32,6 @@ export class MechanicService {
     return this.http.put<ReparationView>(this.url, status);
   }
 
-
-
   getIssuesByReparationId(reparationId: string) {
     this.http.get<ReparationView>(`${this.url}/${reparationId}`).subscribe(response => {
       this.issues.set(response.issues);

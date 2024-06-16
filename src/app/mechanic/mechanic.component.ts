@@ -38,8 +38,10 @@ export class MechanicComponent implements OnInit {
   }
 
   deleteReparation(id: string) {
-    this.mechanicService.deleteReparation(id).subscribe();
-
+    this.mechanicService.deleteReparation(id).subscribe(response => {
+      this.reparations = this.reparations.filter(reparation => reparation.id !== id)
+    });
+    
   }
 
   goToScooterDetails(scooterId: string): void {
