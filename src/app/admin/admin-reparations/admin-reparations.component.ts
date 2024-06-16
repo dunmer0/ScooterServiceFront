@@ -3,11 +3,12 @@ import { ReparationView } from '../../mechanic/shared/ReparationView';
 import { AdminService } from '../shared/admin.service';
 import { Location, NgClass, NgFor, NgIf } from '@angular/common';
 import { MemberView } from '../shared/MemberView';
+import {StatusPipePipe} from "../../pipes/status-pipe.pipe";
 
 @Component({
   selector: 'app-admin-reparations',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass],
+    imports: [NgIf, NgFor, NgClass, StatusPipePipe],
   templateUrl: './admin-reparations.component.html',
   styleUrl: './admin-reparations.component.css'
 })

@@ -24,24 +24,30 @@
             {{ reparation.issues.length }}
           </td>
           <td class="px-4 py-2 text-center">
-            <span
-              class="inline-block px-2 py-1 rounded-full text-black font-semibold
-                      {{
-                reparation.status === '2'
-                  ? 'bg-green-500'
-                  : reparation.status === '1'
-                  ? 'bg-blue-500'
-                  : 'bg-yellow-500'
-              }}"
-            >
-              {{
-                reparation.status === "2"
-                  ? "Completed"
-                  : reparation.status === "1"
-                  ? "In progress"
-                  : "Pending"
-              }}
-            </span>
+            <span class="inline-block px-2 py-1 rounded-full text-black font-semibold w-full"
+                  [ngClass]=" reparation.status == '0' ? 'bg-red-500' : reparation.status == '1' ? 'bg-yellow-500' : 'bg-green-500'">
+
+                 {{ reparation.status | statusPipe }}
+
+          </span>
+<!--            <span-->
+<!--              class="inline-block px-2 py-1 rounded-full text-black font-semibold-->
+<!--                      {{-->
+<!--                reparation.status === '2'-->
+<!--                  ? 'bg-green-500'-->
+<!--                  : reparation.status === '1'-->
+<!--                  ? 'bg-blue-500'-->
+<!--                  : 'bg-yellow-500'-->
+<!--              }}"-->
+<!--            >-->
+<!--              {{-->
+<!--                reparation.status === "2"-->
+<!--                  ? "Completed"-->
+<!--                  : reparation.status === "1"-->
+<!--                  ? "In progress"-->
+<!--                  : "Pending"-->
+<!--              }}-->
+<!--            </span>-->
           </td>
         </tr>
       </tbody>
