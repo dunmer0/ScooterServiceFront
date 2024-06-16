@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MechanicService } from './shared/mechanic.service';
-import { ReparationStatus, ReparationView } from './shared/ReparationView';
 
 import { Router } from '@angular/router';
+import { ReparationNew } from './shared/ReparationNew';
+import { ReparationStatus, ReparationView } from './shared/ReparationView';
 
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { StatusPipePipe } from "../pipes/status-pipe.pipe";
 import { IssueView } from './shared/IssueView';
-import {StatusPipePipe} from "../pipes/status-pipe.pipe";
 
 
 
@@ -23,17 +24,17 @@ export class MechanicComponent implements OnInit {
   issues: IssueView[] = [];
   response: any;
 
-  constructor(private mechanicService: MechanicService, private router: Router) {
-  }
 
-
+  constructor(private mechanicService: MechanicService, private router: Router) { }
   ngOnInit(): void {
     this.mechanicService.getReparations().subscribe(data => {
       this.reparations = data;
+      console.log(data)
     });
   }
 
-  createReparation(reparation: ReparationView) {
+
+  createReparation(reparation: ReparationNew) {
     this.mechanicService.createReparation(reparation).subscribe();
   }
 
@@ -41,11 +42,15 @@ export class MechanicComponent implements OnInit {
     this.mechanicService.deleteReparation(id).subscribe(response => {
       this.reparations = this.reparations.filter(reparation => reparation.id !== id)
     });
-    
+
   }
+
 
   goToScooterDetails(scooterId: string): void {
     this.router.navigate(['service/scooter', scooterId]);
+  }
+  goToAddReparation() {
+    this.router.navigate(['service/add-reparation']);
   }
 
   goToIssuesDetails(reparationId: string): void {

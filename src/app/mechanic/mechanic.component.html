@@ -4,6 +4,11 @@
   Welcome to Service Panel!
 </div>
 
+<div class="flex items-center justify-center mt-5">
+  <button class="bg-green-500 font-bold text-black py-2 px-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+                (click)="goToAddReparation()">Add Reparation</button>
+              </div>
+
 <div class="wrapper-container flex justify-center">
   <table class="mt-5 border">
     <thead>
@@ -16,6 +21,7 @@
     </tr>
     </thead>
     <tbody>
+
       @for (reparation of reparations; track reparation.id){
       <tr class="bg-green-50 border-2 border-green-600 hover:bg-green-100">
         <td class="px-4 py-2 text-center" (click)="goToScooterDetails(reparation.scooter.id)">{{ reparation.scooter.brand }}</td>

@@ -1,0 +1,62 @@
+<div class="static flex items-center justify-center h-full p-4" >
+    <div class="absolute flex justify-center top-15">
+      <form [formGroup]="reparationForm" autocomplete="off" class="static space-y-4 w-80">
+        <!-- <div formGroupName="scooter"> -->
+          <h2 class="text-xl text-green-700 font-semibold">New Reparation</h2>
+          <div class="mt-2">
+            <label for="scooterOwner" class="flex font-bold text-green-700">Owner</label>
+            <input id="scooterOwner" type="text" formControlName="scooterOwner" required class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+          </div>
+  
+          <div class="mt-2">
+            <label for="brand" class="flex font-bold text-green-700">Brand</label>
+            <input id="brand" type="text" formControlName="brand" required class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+          </div>
+  
+          <div class="mt-2">
+            <label for="model" class="flex font-bold text-green-700">Model</label>
+            <input id="model" type="text" formControlName="model" required class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+          </div>
+  
+          <div class="mt-2">
+            <label for="power" class="flex font-bold text-green-700">Power</label>
+            <input id="power" type="number" min="0" formControlName="power" required class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+          </div>
+        <!-- </div> -->
+        <!-- <h3 class="text-xl text-green-700 font-semibold">Issues</h3>
+        <div class="overflow-y-auto h-16">
+            <div [formGroup]="reparationForm">
+                <ng-container formArrayName="issues">
+                    <ng-container *ngFor="let item of issues.controls; let i = index">
+                    <div class="mt-1 flex space-x-2">
+                        <input id="name" type="text" [formGroupName]="i" placeholder="Issue name" class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+                        <input id="hoursOfWork" type="number" min="1" [formGroupName]="i" placeholder="Work hours" class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+                        <button (click)="deleteIssue(i)" class="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600">Delete</button>
+                    </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div> -->
+        <h3 class="text-xl text-green-700 font-semibold">Issues</h3>
+  <div class="overflow-y-auto h-16">
+    <div [formGroup]="reparationForm">
+      <ng-container formArrayName="issues">
+        <ng-container *ngFor="let issue of issues.controls; let i = index">
+          <div [formGroupName]="i" class="mt-1 flex space-x-2">
+            <input type="text" formControlName="name" placeholder="Issue name" class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+            <input type="number" min="1" formControlName="hoursOfWork" placeholder="Work hours" class="w-full border border-gray-300 py-1 px-3 rounded-md focus:outline-none focus:border-green-500">
+            <button (click)="deleteIssue(i)" class="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600">Delete</button>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  
+        <div class="flex justify-center mt-4">
+        <button (click)="addIssue()" class="bg-green-500 font-bold text-white py-2 px-4 m-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Add Issue</button>
+          <button (click)="onSubmit()" type="submit" class="bg-green-500 font-bold text-white py-2 px-4 m-2 rounded-md border-2 border-green-600 hover:bg-green-600 hover:shadow-lg transform hover:-translate-y-1 transition duration-300">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
