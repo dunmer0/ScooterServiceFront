@@ -25,7 +25,7 @@
       @for (reparation of reparations; track reparation.id){
       <tr class="bg-green-50 border-2 border-green-600 hover:bg-green-100">
         <td class="px-4 py-2 text-center" (click)="goToScooterDetails(reparation.scooter.id)">{{ reparation.scooter.brand }}</td>
-        <td class="px-4 py-2 text-center">{{ reparation.user.userName }}</td>
+        <td class="px-4 py-2 text-center">{{ reparation.user.name }}</td>
         <td class="px-4 py-2 text-center" (click)="goToIssuesDetails(reparation.id)">{{ reparation.issues.length }}</td>
         <td class="px-4 py-2 text-center">
             <span class="inline-block px-2 py-1 rounded-full text-black font-semibold w-full"
